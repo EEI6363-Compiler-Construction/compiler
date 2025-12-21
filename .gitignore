@@ -1,0 +1,4 @@
+build/
+src/scanner/scanner(flex_generated).c
+output/
+.vscode/

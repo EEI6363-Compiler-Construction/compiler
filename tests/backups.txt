@@ -1,0 +1,303 @@
+class Dog1 {};
+class Dog2 isa Pet, Animal, MansBestFriend {};
+
+
+
+
+
+class Dog1{
+
+    //possible construct combinations
+
+    private construct ();
+    private construct (x:y);
+    public construct (x:y[]);
+    private construct (x:y[][20]);
+    public construct (x:y, x:y);
+    private construct (x:y, x:y[]);
+    public construct (x:y, x:y[][20]);
+    private construct (x:y[], x:y[][20]);
+    public construct (x:y[][20], x:y[][20]);
+
+    //possible attribute declarations
+
+    public attribute x: integer;
+    private attribute x: float;
+    public attribute x: y;
+    private attribute x: integer[];
+    public attribute x: float[];
+    private attribute x: y[];
+    public attribute x: integer[10][];
+    private attribute x: float[10][];
+    public attribute x: y[10][];
+
+
+    //possible function declarations
+
+    public func helloWorld () => void;
+    private func helloWorld (x: y) => integer;
+    private func helloWorld (x: y[]) => float;
+    public func helloWorld (x: y[10]) => void;
+    private func helloWorld (x: y, x: y) => float;
+    public func helloWorld (x: y[10], x: y[]) => integer;
+    private func helloWorld (x: y[10], x: y[], x: y) => float;
+
+};
+
+
+
+class Dog2{
+
+    //possible construct combinations
+
+    private construct ();
+    private construct (x:y);
+    public construct (x:y[]);
+    private construct (x:y[][20]);
+    public construct (x:y, x:y);
+    private construct (x:y, x:y[]);
+    public construct (x:y, x:y[][20]);
+    private construct (x:y[], x:y[][20]);
+    public construct (x:y[][20], x:y[][20]);
+
+    //possible attribute declarations
+
+    public attribute x: integer;
+    private attribute x: float;
+    public attribute x: y;
+    private attribute x: integer[];
+    public attribute x: float[];
+    private attribute x: y[];
+    public attribute x: integer[10][];
+    private attribute x: float[10][];
+    public attribute x: y[10][];
+
+
+    //possible function declarations
+
+    public func helloWorld () => void;
+    private func helloWorld (x: y) => integer;
+    private func helloWorld (x: y[]) => float;
+    public func helloWorld (x: y[10]) => void;
+    private func helloWorld (x: y, x: y) => float;
+    public func helloWorld (x: y[10], x: y[]) => integer;
+    private func helloWorld (x: y[10], x: y[], x: y) => float;
+
+};
+
+
+
+
+
+
+
+class Hi isa man {
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute y: integer[][100];
+};
+
+implement id56 { 
+func helloWorld1 (yes:no) => void {}
+func helloWorld2 (yes:no) => void {}
+ }
+class Hi isa man {
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute x: integer[1][2];
+    public attribute y: integer[4][3];
+    public attribute z: integer;
+    public attribute p: integer[][100];
+};
+
+implement id56 { 
+func helloWorld1 (yes:no) => void {}
+func helloWorld2 (yes:no) => void {local y: integer[];
+    local z: integer[10];}
+ }
+
+
+
+
+
+
+implement id56 { 
+
+    func helloWorld1 (yes:no) => void {}
+
+    func helloWorld2 (yes:no) => void {
+
+        local y: integer[];
+        local z: integer[10];
+
+        read(x[x(20,30,40)]);
+        write(10);
+        return(x(10,20));
+        
+    }
+ }
+
+
+class Hi isa man,man {
+
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute x: integer[1][2];
+    public attribute y: integer[4][3];
+    public attribute z: integer;
+    public attribute p: integer[][100];
+
+};
+
+func helloWorld2 (yes:no) => void {
+
+    local y: integer[];
+    local z: integer[10][30];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+func helloWorld1 (x:integer) => void {
+
+    x();
+
+}
+
+
+
+
+
+
+class Hi isa man {
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute y: integer[][100];
+};
+
+implement id56 { 
+func helloWorld1 (yes:no) => void {}
+func helloWorld2 (yes:no) => void {}
+ }
+class Hi isa man {
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute x: integer[1][2];
+    public attribute y: integer[4][3];
+    public attribute z: integer;
+    public attribute p: integer[][100];
+};
+
+implement id56 { 
+func helloWorld1 (yes:no) => void {}
+func helloWorld2 (yes:no) => void {local y: integer[];
+    local z: integer[10];}
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+func helloWorld3 (yes:no) => void {}
+
+func helloWorld3 () => void {
+    read(x[xy[10][x[20][30][50]][30][p(20,30)]]);
+    read(y[xy[10][x[20][30][50]][30][p(20,30)]]);
+    read(z[xy[10][x[20][30][50]][30][p(20,30)]]);
+}
+
+
+class Hi isa man {
+    private construct ();
+    public func helloWorld1 () => void;
+    public func helloWorld2 (x:y[100][], y:sdasd[][], p: asdad) => void;
+    public attribute y: integer[][100];
+};
+
+
+
+
+
+
+
+    private func hi (x: what[][], y: no[][], z: ssaaw[][], as: sadaw, noass:dsa[][25]) => nowhat;
+class Dog3 isa Pet, Animal{
+    public attribute y: integer[][100];
+    private func hi (x: what[][10][11]) => nowhat;
+};
+
+class Dog4 isa Pet, Animal, MansBestFriend {
+    public attribute y: integer;
+    public attribute x: float;
+    private func hi (x: what) => nowhat;
+};
+
+
+
+
+
+func simple( x:integer[],  x:float[10] ) =>  float {
+        if ( x == y ) then {
+                simple();
+            }
+             else {
+                simple();
+            } ;
+
+}
+
+
+
+class Animal {};
+
+
+class Dog isa Animal {
+    public attribute y: float[10][10];
+    public attribute x: float[10][10];
+    public func helloWorld1 (xi:integer[10]) => integer;
+    public func helloWorld2 () => void;
+};
+
+implement id56 { 
+    func helloWorld5 (yes:integer[10], y:float[10][10]) => float {}
+}
+

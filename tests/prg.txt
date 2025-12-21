@@ -1,0 +1,34 @@
+/*
+class Vehicle {};
+
+
+class Car isa Vehicle {
+    public attribute y: float[10][10];
+    public attribute x: float[10][10];
+    public func helloWorld1 (xi:integer[10]) => integer;
+    public func helloWorld2 () => void;
+};
+
+implement id56 { 
+    func setRank (rank:integer[10], rank:float[10][10]) => float {}
+}
+
+*/
+
+func call() => void{}
+
+
+func simple() =>  void {
+
+    local x: integer;
+    local y: integer;
+    local z: integer;
+    local a: integer;
+
+    x := 10;
+    y := 20;
+    z := (x + y);
+
+    write(z);
+
+}
