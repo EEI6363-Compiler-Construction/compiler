@@ -30,8 +30,10 @@ gcc \
  src/syntax_analyzer/ast/ast.c \
  \
  src/semantic_analyzer/semantic_analyzer.c \
- src/semantic_analyzer/symbol_table/symbol_table.c \
- src/semantic_analyzer/symbol_table/symbol_table_printer.c \
+ src/symbol_table/symbol_table.c \
+ src/symbol_table/symbol_table_printer.c \
+  \
+ src/intermediate_code_generator/code_generator.c \
  \
  src/utils/token_strings.c \
  src/utils/logger.c \

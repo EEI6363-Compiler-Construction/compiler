@@ -27,8 +27,18 @@ func simple() =>  void {
 
     x := 10;
     y := 20;
-    z := (x + y);
+
+    if ( x <> y ) then {
+        a := 11; 
+    } else {
+        a := 22;
+    };
+
+    z := a;
 
     write(z);
 
 }
+
+
+

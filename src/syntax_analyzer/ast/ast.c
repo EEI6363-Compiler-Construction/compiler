@@ -4,12 +4,13 @@
 #include <string.h>
 
 #include "ast.h"
-#include "../../semantic_analyzer/symbol_table/symbol_table.h"
+#include "../../symbol_table/symbol_table.h"
 
 int semTop = 0;
 int penTop = 0;
 node* semanticStack[MAX_SEMANTIC_STACK] = {NULL};
 pendingNonTerminal* pendingStack[250] = {NULL};
+node* astRoot;
 
 char* nodeTypeStrings[MAX_NODE_TYPES] = {
     "CLASS_NODE",

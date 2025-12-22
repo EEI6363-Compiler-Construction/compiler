@@ -3,6 +3,7 @@
 #include "syntax_analyzer/syntax_analyzer.h"
 #include "utils/logger.h"
 #include "semantic_analyzer/semantic_analyzer.h"
+#include "intermediate_code_generator/code_generator.h"
 
 int main(int argc, char *argv[]) {
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[]) {
 
     runParser(argv[1]);
     runSemanticAnalyzer();
+    runCodeGenerator();
 
     return 0;
 }

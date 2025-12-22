@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "symbol_table.h"
-#include "../../utils/logger.h"
+#include "../utils/logger.h"
 
 typedef struct RowInfo {
     char* identifier;

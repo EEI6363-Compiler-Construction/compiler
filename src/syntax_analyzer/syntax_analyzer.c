@@ -262,6 +262,35 @@ void reducePendingStack(int symbol, char* lexeme) {
     }
 }
 
+node* deepCopyAST(node* src) {
+    if (!src) return NULL;
+
+    node* copy = (node*)malloc(sizeof(node));
+    if (!copy) {
+        perror("malloc failed in deepCopyAST");
+        exit(1);
+    }
+
+    copy->type = src->type;
+    copy->value = src->value ? strdup(src->value) : NULL;
+    copy->intValue = src->intValue;
+    copy->floatValue = src->floatValue;
+    copy->nops = src->nops;
+    copy->line_no = src->line_no;
+    copy->col_no = src->col_no;
+
+    if (src->nops > 0) {
+        copy->op = (node**)malloc(sizeof(node*) * src->nops);
+        for (int i = 0; i < src->nops; i++) {
+            copy->op[i] = deepCopyAST(src->op[i]);
+        }
+    } else {
+        copy->op = NULL;
+    }
+
+    return copy;
+}
+
 int runParser(char *argv) {
 
     p("Parser Started...");
@@ -297,6 +326,7 @@ int runParser(char *argv) {
                 done();
                 for (int i = 0; i < 200; i++) printf("=");
                 printAST();
+                astRoot = deepCopyAST(semanticStack[0]);
                 printASTToFile();
             } else {
                 handleSyntaxError(argv, previousLexeme);

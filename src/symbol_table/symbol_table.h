@@ -1,11 +1,11 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
 
-#include "../../syntax_analyzer/ast/ast.h"
+#include "../syntax_analyzer/ast/ast.h"
 
 #define SYMBOL_TABLE_SIZE 50
-#define INT_SIZE 3
-#define FLOAT_SIZE 8
+#define INT_SIZE 1
+#define FLOAT_SIZE 1
 
 typedef enum {
     CLASS_SYMBOL_TYPE = 0,
@@ -89,7 +89,7 @@ typedef struct SymbolTable {
     struct Symbol *parent;          
 } SymbolTable;
 
-
+extern SymbolTable *globalTable;
 
 Symbol *createSymbol();
 SymbolTable *createSymbolTable(Symbol *parent);

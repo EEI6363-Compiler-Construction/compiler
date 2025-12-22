@@ -90,6 +90,7 @@ typedef struct {
 
 extern char* nodeTypeStrings[];
 extern node* semanticStack[];
+extern node* astRoot;
 extern pendingNonTerminal* pendingStack[];
 
 void pushSemanticStack(node* node);

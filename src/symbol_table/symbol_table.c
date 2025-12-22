@@ -3,8 +3,8 @@
 #include <string.h>
 #include "symbol_table.h"
 #include "symbol_table_printer.h"
-#include "../../syntax_analyzer/ast/ast.h"
-#include "../../utils/logger.h"
+#include "../syntax_analyzer/ast/ast.h"
+#include "../utils/logger.h"
 
 #define TABLE_STACK_SIZE 10
 
@@ -680,8 +680,6 @@ void handleBlockNode(node * treeNode) {
 
 void handleArithExprNode(node * treeNode) {
 
-    int typeOfLHS = -1;
-    int typeOfRHS = -1;
 
     for (int i = 0; i < treeNode->nops; i++){
         
@@ -696,67 +694,15 @@ void handleArithExprNode(node * treeNode) {
                 exit(1);
             }
 
-            if (i == 0){
-                typeOfLHS = variable->typeInfo->dataType;
-            } else {
-                typeOfRHS = variable->typeInfo->dataType;    
-            }
         } 
         
-        else if (treeNode->op[i]->type == LITERAL_NODE){
-           
-            if (treeNode->op[i]->intValue){
-
-                if (i == 0){
-                    typeOfLHS = INT_TYPE;
-                } else {
-                    typeOfRHS = INT_TYPE;   
-                }
-            }
-            
-            else {
-               
-                if (i == 0){
-                    typeOfLHS = FLOAT_TYPE;
-                } else {
-                    typeOfRHS = FLOAT_TYPE;   
-                }
-            }
-        }
         else if (treeNode->op[i]->type == ARITHEXPR_NODE){
             for (int i = 0; i < treeNode->op[i]->nops; i++) traverseAST(treeNode->op[i]);
         }
     }  
-
-    if (typeOfLHS != typeOfRHS) { 
-        printf("Semantic Error: Type mismatch in expression (%s)\n\n",treeNode->value);
-        printf("Checking semantics");
-        fail();
-        exit(1);
-    } 
-    
-    else {
-
-        treeNode->type = LITERAL_NODE;
-
-        treeNode->intValue = 0;
-        treeNode->floatValue = 0.0f;
-
-        if (treeNode->op[0]->intValue){
-            treeNode->intValue = treeNode->op[0]->intValue;
-        }
-        
-        else {
-            treeNode->floatValue = treeNode->op[0]->floatValue;
-        
-        }
-    }
 }
 
 void handleAssignNode(node * treeNode) {
-
-    int typeOfLHS = -1;
-    int typeOfRHS = -1;
 
     for (int i = 0; i < treeNode->nops; i++){
         
@@ -770,63 +716,7 @@ void handleAssignNode(node * treeNode) {
                 fail();
                 exit(1);
             }
-
-            if (i == 0){
-                typeOfLHS = existingFunc->typeInfo->dataType;
-            } else {
-                typeOfRHS = existingFunc->typeInfo->dataType;   
-            }
         } 
-        
-        else if (treeNode->op[i]->type == LITERAL_NODE){
-           
-            if (treeNode->op[i]->intValue){
-                if (i == 0){
-                    typeOfLHS = INT_TYPE;
-                } else {
-                    typeOfRHS = INT_TYPE;   
-                }
-            }
-            
-            else {
-                if (i == 0){
-                    typeOfLHS = FLOAT_TYPE;
-                } else {
-                    typeOfRHS = FLOAT_TYPE;   
-                }
-            }
-        }
-
-        else if (treeNode->op[i]->type == ARITHEXPR_NODE){
-
-            handleArithExprNode(treeNode->op[i]);
-            
-            if (treeNode->op[i]->type == LITERAL_NODE){
-
-                if (treeNode->op[i]->intValue){
-                    if (i == 0){
-                        typeOfLHS = INT_TYPE;
-                    } else {
-                        typeOfRHS = INT_TYPE;   
-                    }
-                }
- 
-                else if (treeNode->op[i]->floatValue) {
-                    if (i == 0){
-                        typeOfLHS = FLOAT_TYPE;
-                    } else {
-                        typeOfRHS = FLOAT_TYPE;   
-                    }
-                }
-            }
-        }
-    }  
-
-    if (typeOfLHS != typeOfRHS) { 
-        printf("Semantic Error: Type mismatch in expression (%s)\n\n",treeNode->value);
-        printf("Checking semantics");
-        fail();
-        exit(1);
     }
 }
 
