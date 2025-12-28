@@ -1,0 +1,21 @@
+func simple() =>  void {
+
+    local x: integer;
+    local y: integer;
+    local z: integer;
+    local a: integer;
+
+    x := 20;
+    y := 10;
+
+    if ( x > y ) then {
+        a := 11; 
+    } else {
+        a := 22;
+    };
+
+    z := a;
+
+    write(z);
+
+}

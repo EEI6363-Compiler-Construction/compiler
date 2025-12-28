@@ -13,9 +13,9 @@ implement id56 {
     func setRank (rank:integer[10], rank:float[10][10]) => float {}
 }
 
-*/
-
 func call() => void{}
+
+*/
 
 
 func simple() =>  void {
@@ -25,10 +25,10 @@ func simple() =>  void {
     local z: integer;
     local a: integer;
 
-    x := 10;
-    y := 20;
+    x := 20;
+    y := 10;
 
-    if ( x <> y ) then {
+    if ( x > y ) then {
         a := 11; 
     } else {
         a := 22;

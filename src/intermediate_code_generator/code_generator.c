@@ -6,8 +6,7 @@
 #include "../utils/logger.h"
 
 
-
-void generateNode(node* astNode);
+void generateCode(node* astNode);
 void generateExpression(node* expressionNode);
 void generateBinaryArithmeticExpr(const node* exprNode);
 void generateAssignment(node* assignNode);
@@ -67,13 +66,6 @@ Symbol* findSymbol(const char* identifier) {
 }
 
 
-void generateCode(node* abstractSyntaxTree) {
-    if (!abstractSyntaxTree) {
-        return;
-    }
-
-    generateNode(abstractSyntaxTree);
-}
 
 void generateLiteral(const node* literalNode) {
     printf("loadacc #%d\n", literalNode->intValue);
@@ -96,7 +88,7 @@ void generateBinaryArithmeticExpr(const node* exprNode) {
     else if (leftOperand->type == LITERAL_NODE) {
         printf("loadacc #%s\n", leftOperand->value);
     }
-    else if (leftOperand->type == VARIABLECALL_NODE){
+    else if (leftOperand->type == VARIABLECALL_NODE || leftOperand->type == ID_NODE){
 
         Symbol *symbol = findSymbol(leftOperand->value);
         printf("loadacc %s\n", intToHexString(symbol->typeInfo->offset));
@@ -136,18 +128,22 @@ void generateBinaryArithmeticExpr(const node* exprNode) {
         return;
     }
 
-    if (rightOperand->type == VARIABLECALL_NODE) {
+    if (rightOperand->type == VARIABLECALL_NODE || rightOperand->type == ID_NODE) {
+
+        Symbol *symbol = findSymbol(rightOperand->value);
 
         if (strcmp(exprNode->value, "+") == 0) {
-            Symbol *symbol = findSymbol(rightOperand->value);
             printf("add %s\n", intToHexString(symbol->typeInfo->offset));
         }
-        else if (strcmp(exprNode->value, "-") == 0)
-            printf("sub %d\n", rightOperand->intValue);
-        else if (strcmp(exprNode->value, "*") == 0)
-            printf("mul %d\n", rightOperand->intValue);
-        else if (strcmp(exprNode->value, "/") == 0)
-            printf("div %d\n", rightOperand->intValue);
+        else if (strcmp(exprNode->value, "-") == 0) {
+            printf("sub %s\n", intToHexString(symbol->typeInfo->offset));
+        }
+        else if (strcmp(exprNode->value, "*") == 0) {
+            printf("mul %s\n", intToHexString(symbol->typeInfo->offset));
+        }
+        else if (strcmp(exprNode->value, "/") == 0) {
+            printf("div %s\n", intToHexString(symbol->typeInfo->offset));
+        }
 
         return;
     }
@@ -162,8 +158,6 @@ void generateBinaryArithmeticExpr(const node* exprNode) {
     else if (strcmp(exprNode->value, "/") == 0)
         printf("div %s\n", rightOperand->value);
 }
-
-
 
 void generateExpression(node* expressionNode) {
 
@@ -188,12 +182,11 @@ void generateExpression(node* expressionNode) {
 
         default:
             for (int i = 0; i < expressionNode->nops; i++) {
-                generateNode(expressionNode->op[i]);
+                generateCode(expressionNode->op[i]);
             }
             break;
     }
 }
-
 
 void generateAssignment(node* assignNode) {
 
@@ -213,9 +206,31 @@ void generateWriteStatement(node* writeNode) {
     printf("storeacc %s\n", WRITE_LOCATION);
 }
 
+void generateRelop(node* relopNode){
+
+    node *leftNode = relopNode->op[0];
+    node *rightNode = relopNode->op[1];
+
+    Symbol *leftSymbol = findSymbol(leftNode->value);
+    Symbol *rightSymbol = findSymbol(rightNode->value);
+
+    
+    if (strcmp(relopNode->value, ">") == 0){
+        printf("loadacc %s\n", intToHexString(leftSymbol->typeInfo->offset));
+        printf("sub %s\n", intToHexString(rightSymbol->typeInfo->offset));
+        printf("loadacc #9\n");
+        printf("js\n");
+    } else if (strcmp(relopNode->value, "<>") == 0) {
+        printf("loadacc %s\n", intToHexString(leftSymbol->typeInfo->offset));
+        printf("sub %s\n", intToHexString(rightSymbol->typeInfo->offset));
+        printf("loadacc #9\n");
+        printf("jz\n");
+    }
+}
 
 
-void generateNode(node* astNode) {
+
+void generateCode(node* astNode) {
 
     if (!astNode) {
         return;
@@ -223,55 +238,41 @@ void generateNode(node* astNode) {
 
     switch(astNode->type) {
 
-        case ASSIGN_NODE:
+        case ASSIGN_NODE: {
             generateAssignment(astNode);
             break;
+        }
 
-        case WRITE_NODE:
+        case WRITE_NODE:{
             generateWriteStatement(astNode);
             break;
+        }
 
         case ARITHEXPR_NODE:
         case VARIABLECALL_NODE:
         case ID_NODE:
-        case LITERAL_NODE:
+        case LITERAL_NODE:{
             generateExpression(astNode);
             break;
+        }
+
         case RELOP_NODE: {
-
-            node *leftNode = astNode->op[0];
-            node *rightNode = astNode->op[1];
-
-            Symbol *leftSymbol = findSymbol(leftNode->value);
-            Symbol *rightSymbol = findSymbol(rightNode->value);
-
-            
-            if (strcmp(astNode->value, ">") == 0){
-                printf("loadacc %s\n", intToHexString(leftSymbol->typeInfo->offset));
-                printf("sub %s\n", intToHexString(rightSymbol->typeInfo->offset));
-                printf("loadacc #9\n");
-                printf("js\n");
-            } else if (strcmp(astNode->value, "<>") == 0) {
-                printf("loadacc %s\n", intToHexString(leftSymbol->typeInfo->offset));
-                printf("sub %s\n", intToHexString(rightSymbol->typeInfo->offset));
-                printf("loadacc #9\n");
-                printf("jz\n");
-            }
-            
+            generateRelop(astNode);
             break;
-
         }
         case ELSE_NODE: {
             printf("jump #6\n");
         }
+
         case FUNCBODY_NODE:
         case BLOCK_NODE:
         case PROGRAM_NODE:
-        default:
+        default: {
             for (int childIndex = 0; childIndex < astNode->nops; childIndex++) {
-                generateNode(astNode->op[childIndex]);
+                generateCode(astNode->op[childIndex]);
             }
             break;
+        }
     }
 }
 

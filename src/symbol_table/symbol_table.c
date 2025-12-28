@@ -490,11 +490,19 @@ void handleLocalVarNode(node *treeNode){
 
     ParamInfo *paramInfo = lookupFparam(getCurrentTable()->parent, treeNode->value);
 
-    if (existingLocalVar || paramInfo) {
+    if (existingLocalVar) {
         printf("Semantic Error: Redeclaration of Variable '%s'\n\n", treeNode->value);
-        //! FIX THE LINE ISSUE
-        printf("%d | func param (%s) \n", existingLocalVar->line, treeNode->value);
+        printf("%d | local %s \n", existingLocalVar->line, treeNode->value);
         printf("%d | local %s\n\n", treeNode->line_no, treeNode->value);
+        printf("Checking semantics");
+        fail();
+        exit(1);
+    }
+    
+    if (paramInfo) {
+        printf("Semantic Error: Redeclaration of Variable '%s'\n\n", treeNode->value);
+        printf("func param (%s) \n", treeNode->value);
+        printf("local %s\n\n", treeNode->line_no, treeNode->value);
         printf("Checking semantics");
         fail();
         exit(1);

@@ -1,0 +1,14 @@
+func simple() =>  void {
+
+    local x: integer;
+    local y: integer;
+    local z: integer;
+
+    x := 20;
+    y := 10;
+    
+    z := x + y ;
+
+    write(z);
+
+}
